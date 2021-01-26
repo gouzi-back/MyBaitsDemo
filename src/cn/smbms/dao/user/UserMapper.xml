@@ -9,5 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="count" resultType="int">
 		select count(1) as count from smbms_user
 	</select>
-	
+
+	<!--查询用户列表-->
+	<select id="getUserList" resultType="cn.smbms.pojo.User">
+		SELECT * FROM	smbms_user
+	</select>
 </mapper>
