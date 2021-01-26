@@ -13,4 +13,6 @@ import java.util.List;
 public interface UserMapper {
 
     public List<User> getUserList();
+
+    public List<User> getUserListByUserName(String userName);
 }

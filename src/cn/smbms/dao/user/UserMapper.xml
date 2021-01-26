@@ -11,7 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!--查询用户列表-->
-	<select id="getUserList" resultType="cn.smbms.pojo.User">
+	<select id="getUserList" resultType="user">
 		SELECT * FROM	smbms_user
+	</select>
+	<!--根据用户名称查询用户列表（like查询）-->
+	<select id="getUserListByUserName" parameterType="String" resultType="user">
+		select * from smbms_user
+		where userName like concat ('%',#{userName},'%')
 	</select>
 </mapper>

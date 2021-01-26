@@ -2,6 +2,8 @@ package cn.smbms.dao.user;
 
 import cn.smbms.pojo.User;
 import cn.smbms.utils.MybatisUtil;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -28,7 +30,7 @@ public class UserMapperTest2 {
 		SqlSession sqlSession = null;
 		try {
 			sqlSession= MybatisUtil.createSqlSession();
-			//4 è°ƒç”¨mapperæ–‡ä»¶æ¥å¯¹æ•°æ®è¿›è¡Œæ“ä½œï¼Œå¿…é¡»å…ˆæŠŠmapperæ–‡ä»¶å¼•å…¥åˆ°mybatis-config.xmlä¸­
+			//4 µ÷ÓÃmapperÎÄ¼şÀ´¶ÔÊı¾İ½øĞĞ²Ù×÷£¬±ØĞëÏÈ°ÑmapperÎÄ¼şÒıÈëµ½mybatis-config.xmlÖĞ
 			count = sqlSession.selectOne("cn.smbms.dao.user.UserMapper.count");
 			logger.debug("UserMapperTest count-------------++++++++++----------------> " + count);
 		} catch (Exception e) {
@@ -42,12 +44,13 @@ public class UserMapperTest2 {
 
 	@Test
 	public void testGetUserList() {
+
 		List<User> userList=null;
 		SqlSession sqlSession = null;
 		try {
 			sqlSession= MybatisUtil.createSqlSession();
-			//4 è°ƒç”¨mapperæ–‡ä»¶æ¥å¯¹æ•°æ®è¿›è¡Œæ“ä½œï¼Œå¿…é¡»å…ˆæŠŠmapperæ–‡ä»¶å¼•å…¥åˆ°mybatis-config.xmlä¸­
-			//userList = sqlSession.selectList("cn.smbms.dao.user.UserMapper.getUserList");
+			//4 µ÷ÓÃmapperÎÄ¼şÀ´¶ÔÊı¾İ½øĞĞ²Ù×÷£¬±ØĞëÏÈ°ÑmapperÎÄ¼şÒıÈëµ½mybatis-config.xmlÖĞ
+			//userList = sqlSession.selectList("mapper.UserMapper.getUserList");
 			userList=sqlSession.getMapper(UserMapper.class).getUserList();
 
 		} catch (Exception e) {
@@ -59,6 +62,32 @@ public class UserMapperTest2 {
 
 		for (User user:userList){
 			logger.debug("testGetUserList  userCode"+user.getUserCode()+"and  userName"+user.getUserName());
+		}
+	}
+
+
+	@Test
+	public void testGetUserListByUserName() {
+
+		List<User> userList=null;
+		SqlSession sqlSession = null;
+
+		String username="ÕÔ";
+		try {
+			sqlSession= MybatisUtil.createSqlSession();
+			//4 µ÷ÓÃmapperÎÄ¼şÀ´¶ÔÊı¾İ½øĞĞ²Ù×÷£¬±ØĞëÏÈ°ÑmapperÎÄ¼şÒıÈëµ½mybatis-config.xmlÖĞ
+			//userList = sqlSession.selectList("mapper.UserMapper.getUserList");
+			userList=sqlSession.getMapper(UserMapper.class).getUserListByUserName(username);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			MybatisUtil.closedSqlSession(sqlSession);
+		}
+
+		for (User user:userList){
+			logger.debug("testGetUserList  userCode"+user.getUserCode()+"and  userName+++++++++++++"+user.getUserName());
 		}
 	}
 

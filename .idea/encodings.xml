@@ -2,6 +2,6 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/test/cn/smbms/dao/user/UserMapperTest.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/test/cn/smbms/dao/user/UserMapperTest2.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/test/cn/smbms/dao/user/UserMapperTest2.java" charset="GBK" />
   </component>
 </project>
