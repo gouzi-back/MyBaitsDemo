@@ -14,7 +14,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserMapperTest2 {
 	
@@ -44,14 +46,16 @@ public class UserMapperTest2 {
 
 	@Test
 	public void testGetUserList() {
-
+		User user = new User();
+		user.setUserName("赵");
+		user.setUserRole(2);
 		List<User> userList=null;
 		SqlSession sqlSession = null;
 		try {
 			sqlSession= MybatisUtil.createSqlSession();
 			//4 调用mapper文件来对数据进行操作，必须先把mapper文件引入到mybatis-config.xml中
 			//userList = sqlSession.selectList("mapper.UserMapper.getUserList");
-			userList=sqlSession.getMapper(UserMapper.class).getUserList();
+			userList=sqlSession.getMapper(UserMapper.class).getUserList(user);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -60,8 +64,8 @@ public class UserMapperTest2 {
 			MybatisUtil.closedSqlSession(sqlSession);
 		}
 
-		for (User user:userList){
-			logger.debug("testGetUserList  userCode"+user.getUserCode()+"and  userName"+user.getUserName());
+		for (User user1:userList){
+			logger.debug("testGetUserList  userCode"+user1.getUserCode()+"and  userName"+user1.getUserName());
 		}
 	}
 
@@ -86,8 +90,34 @@ public class UserMapperTest2 {
 			MybatisUtil.closedSqlSession(sqlSession);
 		}
 
-		for (User user:userList){
-			logger.debug("testGetUserList  userCode"+user.getUserCode()+"and  userName+++++++++++++"+user.getUserName());
+		for (User user1:userList){
+			logger.debug("testGetUserList  userCode"+user1.getUserCode()+"and  userName+++++++++++++"+user1.getUserName());
+		}
+	}
+
+
+	@Test
+	public void testGetUserListByMap() {
+		List<User> userList=null;
+		SqlSession sqlSession = null;
+		Map<String ,String> userMap=new HashMap<>();
+		userMap.put("uName","赵");
+		userMap.put("uRole","2");
+		try {
+			sqlSession= MybatisUtil.createSqlSession();
+			//4 调用mapper文件来对数据进行操作，必须先把mapper文件引入到mybatis-config.xml中
+			//userList = sqlSession.selectList("mapper.UserMapper.getUserList");
+			userList=sqlSession.getMapper(UserMapper.class).getUserListByMap(userMap);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			MybatisUtil.closedSqlSession(sqlSession);
+		}
+
+		for (User user1:userList){
+			logger.debug("testGetUserList  userCode"+user1.getUserCode()+"and  userName"+user1.getUserName());
 		}
 	}
 

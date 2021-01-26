@@ -3,6 +3,7 @@ package cn.smbms.dao.user;
 import cn.smbms.pojo.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther:haha
@@ -12,7 +13,9 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    public List<User> getUserList();
+    public List<User> getUserList(User user);
+
+    public List<User> getUserListByMap(Map<String,String> userMap);
 
     public List<User> getUserListByUserName(String userName);
 }
