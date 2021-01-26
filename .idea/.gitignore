@@ -1,0 +1,8 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../../:\mybaits\2.MyBatis环境搭建\2.案例\示例1：查询用户表记录数（教材示例1-3）\SMBMS_C01_01\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
