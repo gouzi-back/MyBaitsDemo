@@ -27,4 +27,6 @@ public interface UserMapper {
     public int delete(@Param("id") Integer id);
 
     public int updatePwd(@Param("id") Integer id, @Param("userPassword") String userPassword );
+    /*根据角色id查询对应的id*/
+    public List<User> getUserListRoleId(@Param("userRole")Integer id);
 }

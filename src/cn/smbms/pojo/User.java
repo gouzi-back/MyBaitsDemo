@@ -17,6 +17,15 @@ public class User {
     private Integer modifyBy;     //更新者
     private Date modifyDate;   //更新时间
     private int age;
+    private Role role;//用户角色
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public int getAge() {
         Date date = new Date();
