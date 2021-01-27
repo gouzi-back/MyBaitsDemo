@@ -12,6 +12,7 @@
     </select>
 
     <resultMap id="userList" type="user">
+
         <!--<result property="id"  column="id"/>
         <result property="userCode"  column="userCode"/>
         <result property="userName"  column="userName"/>
