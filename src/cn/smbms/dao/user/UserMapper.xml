@@ -113,7 +113,7 @@
           <result property="addressDesc" column="addressDesc"/>
     </resultMap>
     <select id="getAddressByid" resultMap="userAddress" parameterType="Integer">
-        select u.* ,d.id as d_id ,d.contact,d.addressDesc from smbms_user u,smbms_address d
+        select u.* ,d.id as d_id ,d.contact,d.addressDesc ,d.userId from smbms_user u,smbms_address d
         where d.userId=#{id}  and u.id=d.userId
     </select>
 </mapper>

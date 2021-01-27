@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 配置mybatis的log实现为LOG4J -->
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
+		<setting name="autoMappingBehavior" value="FULL"/><!--自动映射-->
 	</settings>
 
 <!--	<settings>

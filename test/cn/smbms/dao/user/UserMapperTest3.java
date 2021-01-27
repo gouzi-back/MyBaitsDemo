@@ -66,7 +66,7 @@ public class UserMapperTest3 {
 			logger.debug("testGetUserList  userCode"+user1.getUserCode()+"and  userName"+user1.getUserName());
 			logger.debug("888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
 			for (Address address:user1.getAddressList())
-			logger.debug("testGetUserList  getContact"+address.getContact()+"and  getAddressDesc"+address.getAddressDesc());
+			logger.debug("testGetUserList  getContact"+address.getContact()+"and  getAddressDesc"+address.getAddressDesc()+"userID<Î´×÷Ó³Éä>"+address.getUserId());
 		}
 	}
 
