@@ -11,12 +11,23 @@
         from smbms_user
     </select>
 
+    <resultMap id="userList" type="user">
+        <!--<result property="id"  column="id"/>
+        <result property="userCode"  column="userCode"/>
+        <result property="userName"  column="userName"/>
+        <result property="phone"  column="phone"/>
+        <result property="birthday"  column="birthday"/>
+        <result property="userRole"  column="userRole"/>-->
+        <result property="userRoleName"  column="roleName"/>
+    </resultMap>
+
     <!--查询用户列表-->
-    <select id="getUserList" parameterType="user" resultType="user">
-        select *
-        from smbms_user
-        where userName like concat('%', #{userName}, '%')
-          and userRole=#{userRole}
+    <select id="getUserList" parameterType="user" resultMap="userList">
+
+        SELECT  u.*,r.roleName FROM smbms_user as u
+                                               INNER JOIN smbms_role as r
+                                                          ON u.userRole=r.id
+        WHERE userName like concat('%', #{userName}, '%') and userRole=#{userRole}
     </select>
     <!--根据用户名称查询用户列表（like查询）-->
     <select id="getUserListByUserName" parameterType="String" resultType="user">

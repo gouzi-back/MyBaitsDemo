@@ -65,7 +65,7 @@ public class UserMapperTest2 {
 		}
 
 		for (User user1:userList){
-			logger.debug("testGetUserList  userCode"+user1.getUserCode()+"and  userName"+user1.getUserName());
+			logger.debug("testGetUserList  userRoleName"+user1.getUserRoleName()+"and  userName"+user1.getUserName());
 		}
 	}
 
