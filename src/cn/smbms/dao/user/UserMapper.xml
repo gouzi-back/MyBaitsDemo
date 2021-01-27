@@ -93,4 +93,27 @@
         select u.* ,r.id as r_id,r.roleCode,r.roleName from smbms_user u,smbms_role r
         where u.userRole=#{userRole}  and u.userRole=r.id
     </select>
+
+
+    <!--根据用户id 获取用户信息 以及地址列表  一对多 -->
+    <resultMap id="userAddress" type="user">
+        <id property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <collection property="addressList" ofType="Address" resultMap="addressListRE">
+           <!-- <id property="id" column="d_id"/>
+            <result property="contact" column="contact"/>
+            <result property="addressDesc" column="addressDesc"/>-->
+
+        </collection>
+    </resultMap>
+    <resultMap id="addressListRE" type="Address">
+         <id property="id" column="d_id"/>
+          <result property="contact" column="contact"/>
+          <result property="addressDesc" column="addressDesc"/>
+    </resultMap>
+    <select id="getAddressByid" resultMap="userAddress" parameterType="Integer">
+        select u.* ,d.id as d_id ,d.contact,d.addressDesc from smbms_user u,smbms_address d
+        where d.userId=#{id}  and u.id=d.userId
+    </select>
 </mapper>

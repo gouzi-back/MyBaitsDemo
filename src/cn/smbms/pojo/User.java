@@ -1,6 +1,7 @@
 package cn.smbms.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Integer id; //id
@@ -18,6 +19,16 @@ public class User {
     private Date modifyDate;   //更新时间
     private int age;
     private Role role;//用户角色
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
+    private List<Address> addressList;
 
     public Role getRole() {
         return role;
