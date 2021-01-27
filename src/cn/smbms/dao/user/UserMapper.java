@@ -1,6 +1,7 @@
 package cn.smbms.dao.user;
 
 import cn.smbms.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +19,12 @@ public interface UserMapper {
     public List<User> getUserListByMap(Map<String,String> userMap);
 
     public List<User> getUserListByUserName(String userName);
+
+    public int add(User user);
+
+    public int update(User user );
+
+    public int delete(@Param("id") Integer id);
+
+    public int updatePwd(@Param("id") Integer id, @Param("userPassword") String userPassword );
 }

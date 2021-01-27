@@ -14,6 +14,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +67,7 @@ public class UserMapperTest2 {
 		}
 
 		for (User user1:userList){
-			logger.debug("testGetUserList  userRoleName"+user1.getUserRoleName()+"and  userName"+user1.getUserName());
+			logger.debug("testGetUserList  userRoleName"+user1.getUserRoleName()+"and  userName"+user1.getUserName()+"年龄："+user1.getAge()+"地址："+user1.getAddress());
 		}
 	}
 
@@ -119,6 +121,117 @@ public class UserMapperTest2 {
 		for (User user1:userList){
 			logger.debug("testGetUserList  userCode"+user1.getUserCode()+"and  userName"+user1.getUserName());
 		}
+	}
+
+	@Test
+	public  void testAdd(){
+		logger.debug("testAdd-----------------------------------------------");
+		SqlSession sqlSession=null;
+		int count=0;
+
+		try {
+			sqlSession=MybatisUtil.createSqlSession();
+			User user =new User();
+			user.setUserCode("0001");
+			user.setUserName("测试用户001");
+			user.setAddress("测试用户地址");
+			user.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse("1984-12-12"));
+			user.setGender(1);
+			user.setUserPassword("123456");
+			user.setUserRole(1);
+			user.setCreatedBy(1);
+			user.setCreationDate(new Date());
+			count=sqlSession.getMapper(UserMapper.class).add(user);
+
+			sqlSession.commit();
+		}catch (Exception e){
+			e.printStackTrace();
+			sqlSession.rollback();
+			count=0;
+		}finally {
+		MybatisUtil.closedSqlSession(sqlSession);
+		}
+		logger.debug("testAdd cout++++++++++++++++"+count);
+	}
+
+
+	@Test
+	public  void testupdate(){
+		logger.debug("testupdate-----------------------------------------------");
+		SqlSession sqlSession=null;
+		int count=0;
+
+		try {
+			sqlSession=MybatisUtil.createSqlSession();
+			User user =new User();
+			user.setUserCode("我笑笑");
+			user.setUserName("测试什么啊");
+			user.setUserPassword("123hh6");
+			user.setModifyBy(1);
+			user.setModifyDate(new SimpleDateFormat("yyyy-MM-dd").parse("2011-2-1"));
+			user.setId(19);
+			count=sqlSession.getMapper(UserMapper.class).update(user);
+
+			sqlSession.commit();
+		}catch (Exception e){
+			e.printStackTrace();
+			sqlSession.rollback();
+			count=0;
+		}finally {
+			MybatisUtil.closedSqlSession(sqlSession);
+		}
+		logger.debug("testAdd cout++++++++++++++++"+count);
+	}
+
+
+
+	@Test
+	public  void testdelete(){
+		logger.debug("testdelete-----------------------------------------------");
+		SqlSession sqlSession=null;
+		int count=0;
+
+		try {
+			sqlSession=MybatisUtil.createSqlSession();
+			User user =new User();
+			user.setId(19);
+			count=sqlSession.getMapper(UserMapper.class).delete(1);
+
+			sqlSession.commit();
+		}catch (Exception e){
+			e.printStackTrace();
+			sqlSession.rollback();
+			count=0;
+		}finally {
+			MybatisUtil.closedSqlSession(sqlSession);
+		}
+		logger.debug("testAdd cout++++++++++++++++"+count);
+	}
+
+
+
+
+
+	@Test
+	public  void testUpdatePwd(){
+		logger.debug("testupdatePwd-----------------------------------------------");
+		SqlSession sqlSession=null;
+		int count=0;
+
+		try {
+			sqlSession=MybatisUtil.createSqlSession();
+
+			count=sqlSession.getMapper(UserMapper.class).updatePwd(1,"hyy123");
+
+			sqlSession.commit();
+		}catch (Exception e){
+			e.printStackTrace();
+			sqlSession.rollback();
+			count=0;
+		}finally {
+			MybatisUtil.closedSqlSession(sqlSession);
+		}
+		logger.debug("testAdd cout++++++++++++++++"+count);
 	}
 
 }

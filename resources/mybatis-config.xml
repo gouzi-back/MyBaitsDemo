@@ -17,6 +17,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
 	</settings>
+
+<!--	<settings>
+		<setting name="autoMappingBehavior" value="NONE"/>
+	</settings>-->
 	<typeAliases>
 <!--		<typeAlias alias="user" type="cn.smbms.pojo.User"/>-->
 		<package name="cn.smbms.pojo"/>

@@ -18,16 +18,18 @@
         <result property="phone"  column="phone"/>
         <result property="birthday"  column="birthday"/>
         <result property="userRole"  column="userRole"/>-->
-        <result property="userRoleName"  column="roleName"/>
+        <result property="userRoleName" column="roleName"/>
     </resultMap>
 
     <!--查询用户列表-->
     <select id="getUserList" parameterType="user" resultMap="userList">
 
-        SELECT  u.*,r.roleName FROM smbms_user as u
-                                               INNER JOIN smbms_role as r
-                                                          ON u.userRole=r.id
-        WHERE userName like concat('%', #{userName}, '%') and userRole=#{userRole}
+        SELECT u.*, r.roleName
+        FROM smbms_user as u
+                 INNER JOIN smbms_role as r
+                            ON u.userRole = r.id
+        WHERE userName like concat('%', #{userName}, '%')
+          and userRole = #{userRole}
     </select>
     <!--根据用户名称查询用户列表（like查询）-->
     <select id="getUserListByUserName" parameterType="String" resultType="user">
@@ -41,6 +43,31 @@
         select *
         from smbms_user
         where userName like concat('%', #{uName}, '%')
-          and userRole=#{uRole}
+          and userRole = #{uRole}
     </select>
+
+
+    <!--查询用户列表-->
+    <insert id="add" parameterType="user">
+        insert into smbms_user (userCode, userName, userPassword, gender, birthday, phone, address, userRole, createdBy,
+                                creationDate)
+        values (#{userCode}, #{userName}, #{userPassword}, #{gender}, #{birthday}, #{phone}, #{address}, #{userRole},
+                #{createdBy}, #{creationDate})
+
+    </insert>
+
+    <!--查询用户列表-->
+    <update id="update" parameterType="user">
+        update smbms_user set userCode=#{userCode},userName=#{userName},userPassword=#{userPassword},modifyBy=#{modifyBy}, modifyDate=#{modifyDate}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="user">
+        delete from smbms_user where id=#{id}
+    </delete>
+
+    <update id="updatePwd">
+       update  smbms_user set userPassword=#{userPassword}
+        where id=#{id}
+    </update>
 </mapper>
