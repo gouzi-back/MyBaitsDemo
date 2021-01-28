@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface UserMapper {
 
-    public List<User> getUserList(User user);
+    public List<User> getUserList(@Param("userName")String userName,@Param("userRole")Integer roleId);
 
     public List<User> getUserListByMap(Map<String,String> userMap);
 

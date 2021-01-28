@@ -48,16 +48,18 @@ public class UserMapperTest2 {
 
 	@Test
 	public void testGetUserList() {
-		User user = new User();
+		/*User user = new User();
 		user.setUserName("赵");
-		user.setUserRole(2);
+		user.setUserRole(2);*/
+		String userName="";
+		Integer roleId=3;
 		List<User> userList=null;
 		SqlSession sqlSession = null;
 		try {
 			sqlSession= MybatisUtil.createSqlSession();
 			//4 调用mapper文件来对数据进行操作，必须先把mapper文件引入到mybatis-config.xml中
 			//userList = sqlSession.selectList("mapper.UserMapper.getUserList");
-			userList=sqlSession.getMapper(UserMapper.class).getUserList(user);
+			userList=sqlSession.getMapper(UserMapper.class).getUserList(userName,roleId);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -22,15 +22,46 @@
         <result property="userRoleName" column="roleName"/>
     </resultMap>
 
-    <!--查询用户列表-->
-    <select id="getUserList" parameterType="user" resultMap="userList">
+    <!--查询用户列表  动态SQL if  where trim -->
+    <select id="getUserList"  resultType="User">
 
-        SELECT u.*, r.roleName
+    <!--    SELECT u.*, r.roleName
         FROM smbms_user as u
                  INNER JOIN smbms_role as r
                             ON u.userRole = r.id
-        WHERE userName like concat('%', #{userName}, '%')
-          and userRole = #{userRole}
+        WHERE
+        <if test="userName != null and userName != ''">
+            userName like concat('%', #{userName}, '%')
+        </if>
+
+          <if test="userRole != null">
+              and userRole = #{userRole}
+          </if>-->
+<!--
+        SELECT *FROM smbms_user
+        <where>
+            <if test="userName != null and userName != ''">
+                userName like concat('%', #{userName}, '%')
+            </if>
+
+            <if test="userRole != null">
+                and userRole = #{userRole}
+            </if>
+        </where>-->
+
+        SELECT *FROM smbms_user
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="userName != null and userName != ''">
+                userName like concat('%', #{userName}, '%')
+            </if>
+
+            <if test="userRole != null">
+                and userRole = #{userRole}
+            </if>
+        </trim>
+
+
+
     </select>
     <!--根据用户名称查询用户列表（like查询）-->
     <select id="getUserListByUserName" parameterType="String" resultType="user">
