@@ -90,8 +90,29 @@
 
     <!--查询用户列表-->
     <update id="update" parameterType="user">
-        update smbms_user set userCode=#{userCode},userName=#{userName},userPassword=#{userPassword},modifyBy=#{modifyBy}, modifyDate=#{modifyDate}
-        where id=#{id}
+        update smbms_user
+            <trim prefix="set" suffixOverrides="," suffix=" where id=#{id}">
+
+                    <if test="userCode !=null">userCode=#{userCode},</if>
+                    <if test="userPassword !=null">userPassword=#{userPassword},</if>
+                    <if test="modifyBy !=null">modifyBy=#{modifyBy},</if>
+                    <if test="modifyDate !=null">modifyDate=#{modifyDate},</if>
+
+
+
+            </trim>
+
+         <!--   <set>
+                 <if test="userCode !=null">userCode=#{userCode},</if>
+                 <if test="userPassword !=null">userPassword=#{userPassword},</if>
+                 <if test="modifyBy !=null">modifyBy=#{modifyBy},</if>
+                 <if test="modifyDate !=null">modifyDate=#{modifyDate},</if>
+
+            </set>
+        where id=#{id}-->
+        <!--通过注解@param更新-->
+        <!--set userCode=#{userCode},userName=#{userName},userPassword=#{userPassword},modifyBy=#{modifyBy}, modifyDate=#{modifyDate}
+        where id=#{id}-->
     </update>
 
     <delete id="delete" parameterType="user">
@@ -146,5 +167,63 @@
     <select id="getAddressByid" resultMap="userAddress" parameterType="Integer">
         select u.* ,d.id as d_id ,d.contact,d.addressDesc ,d.userId from smbms_user u,smbms_address d
         where d.userId=#{id}  and u.id=d.userId
+    </select>
+
+    <resultMap id="userMapByRole" type="user">
+        <id property="id" column=""></id>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+    </resultMap>
+    <select id="getUser_foreach"    resultMap="userMapByRole">
+        select * from smbms_user where userRole in
+        <foreach collection="array" item="roleIds"
+            open="(" separator="," close=")">
+
+            #{roleIds}
+        </foreach>
+    </select>
+
+
+    <select id="getUser_foreachList"   resultMap="userMapByRole" >
+        select * from smbms_user where userRole in
+        <foreach collection="list" item="roleList" open="(" separator="," close=")">
+
+            #{roleList}
+        </foreach>
+    </select>
+    <!--map-->
+    <select id="getUser_foreachMap" resultMap="userMapByRole" >
+        select * from smbms_user where gender =#{gender} and  userRole in
+               <foreach collection="roleIds" item="roleMap" open="(" separator="," close=")">
+                   #{roleMap}
+               </foreach>
+    </select>
+
+
+    <select id="getUser_Map" resultMap="userMapByRole">
+        select * from smbms_user where userRole in
+        <foreach collection="roleIds" item="roleMap" open="(" separator="," close=")">
+
+            #{roleMap}
+        </foreach>
+    </select>
+
+    <!--choose-->
+    <select id="getUser_choose"  resultType="user">
+        select * from smbms_user where 1=1
+        <choose>
+            <when test="userName != null and userName != ''">
+                and userName like concat('%', #{userName}, '%')
+            </when>
+            <when test="userCode != null and userCode != ''">
+                and userCode like concat('%', #{userCode}, '%')
+            </when>
+            <when test="userRole != null ">
+                and userRole =#{userRole})
+            </when>
+            <otherwise>
+                and YEAR(creationDate)=YEAR(#{creationDate})
+            </otherwise>
+        </choose>
     </select>
 </mapper>
