@@ -7,24 +7,34 @@
 
     <!-- 查询用户表记录数 -->
     <select id="count" resultType="int">
-        select count(1) as count
-        from smbms_user
+        select count(1) as count from smbms_user
     </select>
 
     <resultMap id="userList" type="user">
 
-        <!--<result property="id"  column="id"/>
+        <result property="id"  column="id"/>
         <result property="userCode"  column="userCode"/>
         <result property="userName"  column="userName"/>
         <result property="phone"  column="phone"/>
         <result property="birthday"  column="birthday"/>
-        <result property="userRole"  column="userRole"/>-->
+        <result property="userRole"  column="userRole"/>
         <result property="userRoleName" column="roleName"/>
     </resultMap>
 
     <!--查询用户列表  动态SQL if  where trim -->
-    <select id="getUserList"  resultType="User">
+    <!--分页 -->
+    <select id="getUserList"  resultMap="userList">
 
+        SELECT *FROM smbms_user u,smbms_role r
+        where u.userRole=r.id
+            <if test="userName != null and userName != ''">
+                userName like concat('%', #{userName}, '%')
+            </if>
+
+            <if test="userRole != null">
+                and userRole = #{userRole}
+            </if>
+            order by u.creationDate desc limit #{from },#{PageSize}
     <!--    SELECT u.*, r.roleName
         FROM smbms_user as u
                  INNER JOIN smbms_role as r
@@ -49,16 +59,6 @@
             </if>
         </where>-->
 
-        SELECT *FROM smbms_user
-        <trim prefix="where" prefixOverrides="and | or">
-            <if test="userName != null and userName != ''">
-                userName like concat('%', #{userName}, '%')
-            </if>
-
-            <if test="userRole != null">
-                and userRole = #{userRole}
-            </if>
-        </trim>
 
 
 

@@ -14,8 +14,11 @@ import java.util.Map;
  * @Version: 1.0
  */
 public interface UserMapper {
+    //查询用户记录数
+    public int count();
 
-    public List<User> getUserList(@Param("userName") String userName, @Param("userRole") Integer roleId);
+    public List<User> getUserList(@Param("userName") String userName, @Param("userRole") Integer roleId,
+                                  @Param("from")Integer PageUp,@Param("PageSize")Integer PageSize);
 
     public List<User> getUserListByMap(Map<String, String> userMap);
 
